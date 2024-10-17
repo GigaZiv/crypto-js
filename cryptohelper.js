@@ -314,9 +314,11 @@ window.CryptoHelper = function() {
 		};
 
 		let buf = dn;
-		const fields = [...buf.matchAll(/(\w+)=/g)].reduceRight((acc, cur) => {
+		//const fields = [...buf.matchAll(/(\w+)=/g)].reduceRight((acc, cur) => {
+		const fields = [...buf.matchAll(/[А-Я,A-Z]+)\s?=/g)].reduceRight((acc, cur) => {	
 			let v = buf.substring(cur.index);
 			v = v.replace(cur[0], '');
+			v = v.replace(/,\s.../, ''); //для определения ОГРН, СНИЛС, ИНН
 			v = v.replace(/\s*"?(.*?)"?,?\s?$/, '$1');
 			v = v.replace(/""/g, '"');
 
