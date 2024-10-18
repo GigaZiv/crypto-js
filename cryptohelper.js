@@ -300,22 +300,26 @@ window.CryptoHelper = function() {
 	 */
 	function parseDN(dn) {
 		const tags = {
-			'CN': 'name',
-			'S': 'region',
-			'STREET': 'address',
-			'O': 'company',
-			'OU': 'postType',
-			'T': 'post',
-			'ОГРН': 'ogrn',
-			'СНИЛС': 'snils',
-			'ИНН': 'inn',
-			'E': 'email',
-			'L': 'city'
+            'SN': 'fname',
+            'G': 'lname',
+            'CN': 'name',
+            'S': 'region',
+            'STREET': 'address',
+            'O': 'company',
+            'OU': 'postType',
+            'T': 'post',
+            'ОГРН': 'ogrn',
+            'СНИЛС': 'snils',
+            'ИНН': 'inn',
+            'ЮЛ': 'uinn',
+            'E': 'email',
+            'L': 'city',
+            'C': 'country'
 		};
 
 		let buf = dn;
 		//const fields = [...buf.matchAll(/(\w+)=/g)].reduceRight((acc, cur) => {
-		const fields = [...buf.matchAll(/[А-Я,A-Z]+)\s?=/g)].reduceRight((acc, cur) => {	
+		const fields = [...buf.matchAll(/([А-Я,A-Z]+)\s?=/g)].reduceRight((acc, cur) => {	
 			let v = buf.substring(cur.index);
 			v = v.replace(cur[0], '');
 			v = v.replace(/,\s.../, ''); //для определения ОГРН, СНИЛС, ИНН
